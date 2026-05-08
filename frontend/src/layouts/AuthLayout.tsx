@@ -35,7 +35,7 @@ export function AuthLayout() {
               rel="noreferrer"
               className="text-xs text-ink-300 hover:text-ink-50 transition-colors"
             >
-              View on GitHub →
+              View on GitHub
             </a>
           </div>
 
