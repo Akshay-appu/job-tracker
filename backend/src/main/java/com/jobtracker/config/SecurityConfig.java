@@ -1,6 +1,7 @@
 package com.jobtracker.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.context.annotation.Lazy;
 import com.jobtracker.dto.ErrorResponse;
 import com.jobtracker.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
