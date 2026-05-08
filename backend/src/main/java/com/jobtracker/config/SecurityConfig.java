@@ -1,12 +1,12 @@
 package com.jobtracker.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.context.annotation.Lazy;
 import com.jobtracker.dto.ErrorResponse;
 import com.jobtracker.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,27 +30,25 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
-/**
- * Central security configuration for the application.
- *
- * Key decisions:
- * - Stateless sessions (JWT-based, no server-side session)
- * - CSRF disabled (stateless API, tokens provide protection)
- * - /api/auth/** endpoints are publicly accessible
- * - All other /api/** endpoints require authentication
- * - CORS configured for frontend origin (localhost:5173 in dev)
- * - Custom 401/403 error responses in JSON format
- */
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-@RequiredArgsConstructor
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final UserRepository userRepository;
+
+    @Value("${allowed.origins:http://localhost:5173,http://localhost:3000,http://localhost:80}")
+    private String allowedOrigins;
+
+    public SecurityConfig(@Lazy JwtAuthenticationFilter jwtAuthFilter,
+                          UserRepository userRepository) {
+        this.jwtAuthFilter = jwtAuthFilter;
+        this.userRepository = userRepository;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -101,11 +99,8 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of(
-                "http://localhost:5173",  // Vite dev server
-                "http://localhost:3000",  // Alternate dev port
-                "http://localhost:80"     // Docker nginx
-        ));
+        List<String> origins = Arrays.asList(allowedOrigins.split(","));
+        configuration.setAllowedOrigins(origins);
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
