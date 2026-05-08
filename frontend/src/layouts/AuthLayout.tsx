@@ -7,17 +7,17 @@ const FEATURES = [
   {
     icon: Sparkles,
     title: 'AI-powered analysis',
-    text: 'Match your resume against any job description in seconds with our keyword engine.',
+    text: 'Match your resume against any job description in seconds.',
   },
   {
     icon: TrendingUp,
     title: 'Pipeline at a glance',
-    text: 'Live status counts, charts, and an activity timeline that surfaces what matters.',
+    text: 'Live status counts, charts, and an activity timeline.',
   },
   {
     icon: FileSearch,
     title: 'Find the gaps',
-    text: 'See missing skills, suggestions, and what to learn next — automatically.',
+    text: 'See missing skills and suggestions automatically.',
   },
 ];
 
@@ -41,15 +41,15 @@ export function AuthLayout() {
 
           <div className="max-w-md">
             <p className="text-xs uppercase tracking-[0.2em] text-accent-300 mb-4">
-              Find — filter — focus
+              Find - filter - focus
             </p>
-            <h1 className="font-display text-4xl xl:text-5xl tracking-tight leading-[1.1] text-balance">
+            <h1 className="font-display text-4xl xl:text-5xl tracking-tight leading-[1.1]">
               Turn your job search into a{' '}
               <span className="font-serif italic text-accent-300">system</span>.
             </h1>
-            <p className="mt-5 text-ink-300 text-pretty">
-              Trace is the AI co-pilot for ambitious applicants. Track every application,
-              analyze every resume, and see exactly where to focus next.
+            <p className="mt-5 text-ink-300">
+              Trace is the AI co-pilot for ambitious applicants. Track every
+              application, analyze every resume, and see where to focus next.
             </p>
           </div>
 
@@ -61,8 +61,12 @@ export function AuthLayout() {
                   key={f.title}
                   initial={{ opacity: 0, x: -16 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.15 + i * 0.08, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                  className="flex items-start gap-3 rounded-xl border border-ink-800 bg-ink-900/60 p-3.5 backdrop-blur"
+                  transition={{
+                    delay: 0.15 + i * 0.08,
+                    duration: 0.5,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="flex items-start gap-3 rounded-xl border border-ink-800 bg-ink-900/60 p-3.5"
                 >
                   <span className="rounded-lg bg-ink-800 p-2 text-accent-300">
                     <Icon className="size-4" />
