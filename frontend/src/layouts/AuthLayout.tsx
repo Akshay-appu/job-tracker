@@ -10,7 +10,7 @@ const FEATURES = [
     text: 'Match your resume against any job description in seconds with our keyword engine.',
   },
   {
-    icon: ChartLine,
+    icon: TrendingUp,
     title: 'Pipeline at a glance',
     text: 'Live status counts, charts, and an activity timeline that surfaces what matters.',
   },
@@ -24,14 +24,13 @@ const FEATURES = [
 export function AuthLayout() {
   return (
     <div className="min-h-screen grid lg:grid-cols-[1fr_minmax(420px,520px)]">
-      {/* Left — brand panel */}
       <aside className="hidden lg:flex relative overflow-hidden bg-ink-950 text-ink-50">
         <div className="aurora absolute inset-0" aria-hidden="true" />
         <div className="relative z-10 flex flex-col justify-between p-10 w-full">
           <div className="flex items-center justify-between">
             <Logo size="lg" />
-            <a
-              href="https://github.com/srinivasmohan20003/job-tracker"
+            
+              href="https://github.com/Akshay-appu/job-tracker"
               target="_blank"
               rel="noreferrer"
               className="text-xs text-ink-300 hover:text-ink-50 transition-colors"
@@ -79,7 +78,6 @@ export function AuthLayout() {
         </div>
       </aside>
 
-      {/* Right — form panel */}
       <main className="flex items-center justify-center p-6 sm:p-10 bg-app relative">
         <div className="lg:hidden absolute top-6 left-6">
           <Logo size="md" />
