@@ -129,25 +129,17 @@ api.interceptors.response.use(
 );
 
 /** Extract the friendliest error message from a Spring Boot error body. */
-export function extractErrorMessage(err: unknown, fallback = 'Something went wrong.'): string {
+export function extractErrorMessage(err: unknown, fallback = 'Something went wrong'): string {
   if (!err) return fallback;
-  if (axios.isAxiosError(err)) {
-    const data = err.response?.data as
-      | { message?: string; error?: string; errors?: Array<{ defaultMessage?: string; message?: string }> }
-      | string
-      | undefined;
-
-    if (typeof data === 'string' && data) return data;
-    if (data?.message) return data.message;
-    if (data?.errors && data.errors.length > 0) {
-      const first = data.errors[0];
-      if (first.defaultMessage) return first.defaultMessage;
-      if (first.message) return first.message;
-    }
-    if (data?.error) return data.error;
-    if (err.response?.statusText) return err.response.statusText;
-    if (err.message) return err.message;
+  const e = err as AxiosError<unknown>;
+  const data = e.response?.data;
+  if (typeof data === 'object' && data !== null) {
+    const d = data as { message?: string; error?: string; errors?: { defaultMessage?: string; message?: string }[] };
+    if (d.message) return d.message;
+    if (d.error) return d.error;
+    if (d.errors?.[0]?.defaultMessage) return d.errors[0].defaultMessage;
+    if (d.errors?.[0]?.message) return d.errors[0].message;
   }
-  if (err instanceof Error) return err.message;
+  if (e.message) return e.message;
   return fallback;
 }
