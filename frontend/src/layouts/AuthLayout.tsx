@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Logo } from '@/components/ui/Logo';
-import { Sparkles, ChartLine, FileSearch } from 'lucide-react';
+import { Sparkles, TrendingUp, FileSearch } from 'lucide-react';
 
 const FEATURES = [
   {
