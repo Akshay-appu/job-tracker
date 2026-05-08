@@ -4,21 +4,9 @@ import { Logo } from '@/components/ui/Logo';
 import { Sparkles, TrendingUp, FileSearch } from 'lucide-react';
 
 const FEATURES = [
-  {
-    icon: Sparkles,
-    title: 'AI-powered analysis',
-    text: 'Match your resume against any job description in seconds.',
-  },
-  {
-    icon: TrendingUp,
-    title: 'Pipeline at a glance',
-    text: 'Live status counts, charts, and an activity timeline.',
-  },
-  {
-    icon: FileSearch,
-    title: 'Find the gaps',
-    text: 'See missing skills and suggestions automatically.',
-  },
+  { icon: Sparkles, title: 'AI-powered analysis', text: 'Match your resume against any job description in seconds.' },
+  { icon: TrendingUp, title: 'Pipeline at a glance', text: 'Live status counts, charts, and an activity timeline.' },
+  { icon: FileSearch, title: 'Find the gaps', text: 'See missing skills and suggestions automatically.' },
 ];
 
 export function AuthLayout() {
@@ -29,27 +17,17 @@ export function AuthLayout() {
         <div className="relative z-10 flex flex-col justify-between p-10 w-full">
           <div className="flex items-center justify-between">
             <Logo size="lg" />
-            
-              href="https://github.com/Akshay-appu/job-tracker"
-              target="_blank"
-              rel="noreferrer"
-              className="text-xs text-ink-300 hover:text-ink-50 transition-colors"
-            >
-              View on GitHub
-            </a>
+            <a href="https://github.com/Akshay-appu/job-tracker" target="_blank" rel="noreferrer" className="text-xs text-ink-300 hover:text-ink-50 transition-colors">View on GitHub</a>
           </div>
 
           <div className="max-w-md">
-            <p className="text-xs uppercase tracking-[0.2em] text-accent-300 mb-4">
-              Find - filter - focus
-            </p>
+            <p className="text-xs uppercase tracking-[0.2em] text-accent-300 mb-4">Find - filter - focus</p>
             <h1 className="font-display text-4xl xl:text-5xl tracking-tight leading-[1.1]">
               Turn your job search into a{' '}
               <span className="font-serif italic text-accent-300">system</span>.
             </h1>
             <p className="mt-5 text-ink-300">
-              Trace is the AI co-pilot for ambitious applicants. Track every
-              application, analyze every resume, and see where to focus next.
+              Trace is the AI co-pilot for ambitious applicants. Track every application, analyze every resume, and see where to focus next.
             </p>
           </div>
 
@@ -61,11 +39,7 @@ export function AuthLayout() {
                   key={f.title}
                   initial={{ opacity: 0, x: -16 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{
-                    delay: 0.15 + i * 0.08,
-                    duration: 0.5,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
+                  transition={{ delay: 0.15 + i * 0.08, duration: 0.5 }}
                   className="flex items-start gap-3 rounded-xl border border-ink-800 bg-ink-900/60 p-3.5"
                 >
                   <span className="rounded-lg bg-ink-800 p-2 text-accent-300">
