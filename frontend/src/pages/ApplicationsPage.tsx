@@ -99,39 +99,44 @@ export function ApplicationsPage() {
   };
 
   const onSubmit = async (data: JobApplicationInput) => {
-    setSubmitting(true);
-    try {
-      if (modalKind === 'edit' && activeApp) {
-        const updated = await applicationService.update(activeApp.id, data);
-        setApplications((prev) => prev.map((a) => (a.id === updated.id ? updated : a)));
-        toast.success('Application updated');
-      } else {
-        const created = await applicationService.create(data);
-        setApplications((prev) => [created, ...prev]);
-        toast.success('Application added');
-      }
-      closeModal();
-    } catch (err) {
-      toast.error(extractErrorMessage(err, 'Could not save changes.'));
-    } finally {
-      setSubmitting(false);
-    }
-  };
+  setSubmitting(true);
 
-  const onConfirmDelete = async () => {
-    if (!activeApp) return;
-    setSubmitting(true);
-    try {
-      await applicationService.remove(activeApp.id);
-      setApplications((prev) => prev.filter((a) => a.id !== activeApp.id));
-      toast.success('Application deleted');
-      closeModal();
-    } catch (err) {
-      toast.error(extractErrorMessage(err, 'Could not delete.'));
-    } finally {
-      setSubmitting(false);
+  try {
+    if (modalKind === 'edit' && activeApp) {
+      const updated = await applicationService.update(activeApp.id, data);
+
+      setApplications((prev) =>
+        prev.map((a) => (a.id === updated.id ? updated : a))
+      );
+
+      toast.success('Application updated');
+    } else {
+      const created = await applicationService.create(data);
+
+      setApplications((prev) => [created, ...prev]);
+
+      toast.success('Application added');
     }
-  };
+
+    closeModal();
+  } catch (err: any) {
+    console.log('FULL BACKEND ERROR:', err.response?.data);
+
+    if (err.response?.data?.fieldErrors) {
+      const errors = err.response.data.fieldErrors;
+
+      Object.keys(errors).forEach((key) => {
+        toast.error(`${key}: ${errors[key]}`);
+      });
+    } else if (err.response?.data?.message) {
+      toast.error(err.response.data.message);
+    } else {
+      toast.error(extractErrorMessage(err, 'Could not save changes.'));
+    }
+  } finally {
+    setSubmitting(false);
+  }
+};
 
   return (
     <div className="space-y-6">
